@@ -1,6 +1,7 @@
 package gm.cuentas.controlador;
 
 import gm.cuentas.modelo.Cuenta;
+import gm.cuentas.modelo.TipoCuenta;
 import gm.cuentas.servicio.ICuentaBancariaServicio;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
@@ -23,6 +24,7 @@ public class IndexControlador implements Serializable {
     private List<Cuenta> cuentas;
     private static final Logger logger = LoggerFactory.getLogger(IndexControlador.class);
     private static final long serialVersionUID = 1L;
+    private Cuenta cuentaAgregada;
 
     public IndexControlador(ICuentaBancariaServicio iCuentaBancariaServicio){
         this.iCuentaBancariaServicio = iCuentaBancariaServicio;
@@ -31,10 +33,19 @@ public class IndexControlador implements Serializable {
     @PostConstruct
     public void init(){
          cargarDatos();
+        agregarCuenta();
     }
 
     public void cargarDatos(){
         this.cuentas = iCuentaBancariaServicio.listarCuentas();
         cuentas.forEach((cuenta -> logger.info(cuenta.toString())));
+    }
+
+    public TipoCuenta[] getTiposCuenta(){
+        return TipoCuenta.values();
+    }
+
+    public void agregarCuenta(){
+        this.cuentaAgregada = new Cuenta();
     }
 }
