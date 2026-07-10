@@ -29,8 +29,8 @@ public class CuentaBancariaServicio implements ICuentaBancariaServicio{
     }
 
     @Override
-    public void guardarCuenta(Cuenta cuenta) {
-        cuentaRepositorio.save(cuenta);
+    public Cuenta guardarCuenta(Cuenta cuenta) {
+        return cuentaRepositorio.save(cuenta);
     }
 
     @Override

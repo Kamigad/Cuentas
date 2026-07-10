@@ -6,6 +6,6 @@ import java.util.List;
 public interface ICuentaBancariaServicio {
     public List<Cuenta> listarCuentas();
     public Cuenta buscarPorId(Integer idCuenta);
-    public void guardarCuenta(Cuenta cuenta);
+    public Cuenta guardarCuenta(Cuenta cuenta);
     public void eliminarCuenta(Cuenta cuenta);
 }
