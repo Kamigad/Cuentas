@@ -61,6 +61,10 @@ public class IndexControlador implements Serializable {
             agregarCuenta();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cuenta Agregada"));
         }
+        else{// Modificar (update)
+            this.iCuentaBancariaServicio.guardarCuenta(this.cuentaAgregada);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cuenta Actualizada"));
+        }
         // ocultamos la ventana
         PrimeFaces.current().executeScript("PF('ventanaModalCuenta').hide()");
         // actualizamos la tabla
