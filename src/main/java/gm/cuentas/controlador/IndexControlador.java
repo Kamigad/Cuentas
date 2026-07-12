@@ -27,7 +27,8 @@ public class IndexControlador implements Serializable {
     private List<Cuenta> cuentas;
     private static final Logger logger = LoggerFactory.getLogger(IndexControlador.class);
     private static final long serialVersionUID = 1L;
-    private Cuenta cuentaAgregada;
+    private Cuenta cuentaAgregada; // para agregar/editar
+    private Cuenta cuentaEliminar; // para eliminar
 
     public IndexControlador(ICuentaBancariaServicio iCuentaBancariaServicio){
         this.iCuentaBancariaServicio = iCuentaBancariaServicio;
