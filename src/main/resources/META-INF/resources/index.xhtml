@@ -65,6 +65,15 @@
                                 value="#{cuenta}"/>
                             <p:resetInput target=":forma-modal:cuenta-ventana"/>
                         </p:commandButton>
+
+                        <p:commandButton value="Elimimar" class="ui-button-danger"
+                                         icon="pi pi-trash"
+                                         process="@this"
+                                         oncomplete="PF('eliminarCuentaVentana').show()">
+                            <f:setPropertyActionListener
+                                target="#{indexControlador.cuentaEliminar}"
+                                value="#{cuenta}"/>
+                        </p:commandButton>
                     </p:column>
 
                 </p:dataTable>
@@ -107,6 +116,20 @@
                                      class="ui-button-secondary" type="button"/>
                 </f:facet>
             </p:dialog>
+
+            <p:confirmDialog widgetVar="eliminarCuentaVentana"
+                             showEffect="fade" width="300"
+                             message="Eliminar la Cuenta?"
+                             header="Confirmar" severity="warn">
+                <p:commandButton value="Si" icon="pi pi-check"
+                                 actionListener="#{indexControlador.eliminarCuenta}"
+                                 process="@this"
+                                 oncomplete="PF('eliminarCuentaVentana').hide()"/>
+                <p:commandButton value="No" type="button"
+                                 styleClass="ui-button-secondary"
+                                 icon="pi pi-times"
+                                 onclick="PF('eliminarCuentaVentana').hide()"/>
+            </p:confirmDialog>
         </h:form>
     </div>
 </h:body>

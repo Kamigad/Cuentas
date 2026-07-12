@@ -27,7 +27,8 @@ public class IndexControlador implements Serializable {
     private List<Cuenta> cuentas;
     private static final Logger logger = LoggerFactory.getLogger(IndexControlador.class);
     private static final long serialVersionUID = 1L;
-    private Cuenta cuentaAgregada;
+    private Cuenta cuentaAgregada; // para agregar/editar
+    private Cuenta cuentaEliminar; // para eliminar
 
     public IndexControlador(ICuentaBancariaServicio iCuentaBancariaServicio){
         this.iCuentaBancariaServicio = iCuentaBancariaServicio;
@@ -58,7 +59,6 @@ public class IndexControlador implements Serializable {
         if(this.cuentaAgregada.getIdCuenta() == null){
             cuenta = this.iCuentaBancariaServicio.guardarCuenta(this.cuentaAgregada);
             this.cuentas.add(cuenta);
-            agregarCuenta();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cuenta Agregada"));
         }
         else{// Modificar (update)
@@ -68,6 +68,19 @@ public class IndexControlador implements Serializable {
         // ocultamos la ventana
         PrimeFaces.current().executeScript("PF('ventanaModalCuenta').hide()");
         // actualizamos la tabla
+        PrimeFaces.current().ajax().update("forma-cuentas:mensajes", "forma-cuentas:cuentas-tabla");
+        // Reset del objeto seleccionado de la tabla
+        agregarCuenta();
+    }
+
+    public void eliminarCuenta(){
+        logger.info("Cuenta a eliminar: " + this.cuentaEliminar);
+        this.iCuentaBancariaServicio.eliminarCuenta(this.cuentaEliminar);
+        // Eliminar el registro de la lista de cuentas
+        this.cuentas.remove(this.cuentaEliminar);
+        // Reset del objeto seleccionado de la tabla
+        this.cuentaEliminar = null;
+        FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Cuenta Eliminada"));
         PrimeFaces.current().ajax().update("forma-cuentas:mensajes", "forma-cuentas:cuentas-tabla");
     }
 }
